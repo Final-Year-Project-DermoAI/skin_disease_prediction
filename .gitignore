@@ -1,0 +1,79 @@
+# Dependency Directories
+node_modules/
+jspm_packages/
+web_modules/
+
+# Build and Distribution
+dist/
+build/
+.next/
+out/
+bin/
+obj/
+ui-guidelines/
+# Environment Files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+Skin_Disease_Captioning/
+# Operating System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+model/
+# IDE/Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# Logs and Debugging
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.log
+
+# Database and SQLite
+*.db
+*.sqlite
+*.sqlite3
+
+# UI Guidelines specific
+ui-guidelines/node_modules/
+
+# Backend specific
+skin_termo_backend_node/node_modules/
+skin_termo_backend_node/dist/
+skin_termo_backend_node/uploads/
+!skin_termo_backend_node/uploads/.gitkeep
+
+# Web Frontend specific
+skin_termo_web/node_modules/
+skin_termo_web/dist/
+skin_termo_web/.env
+
+# Python/AI specific
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/

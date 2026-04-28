@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-brand-lime: #DAF185;
+  --color-brand-black: #1A1A1A;
+  --color-brand-blue: #1E3A8A;
+  --color-hero-bg: #F0F4F8;
+  --color-app-bg: #F9FAFB;
+  --color-blob-purple: #C5C6FC;
+  --color-blob-pink: #FDA7D8;
+  /* Brand Primary */
+  --color-primary: #2563EB;
+  --color-primary-dark: #1E40AF;
+  
+  /* Status Colors */
+  --color-status-success: #10B981;
+  --color-status-error: #EF4444;
+  --color-status-warning: #F59E0B;
+  --color-status-info: #3B82F6;
+
+  --animate-blob: blob 7s infinite;
+  --animate-scan-line: scanLine 2s infinite ease-in-out;
+
+  @keyframes blob {
+    0% { transform: translate(0px, 0px) scale(1); }
+    33% { transform: translate(30px, -50px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
+    100% { transform: translate(0px, 0px) scale(1); }
+  }
+  @keyframes scanLine {
+    0% { top: 0; }
+    50% { top: 100%; }
+    100% { top: 0; }
+  }
+}
+
+:root {
+  --sidebar-width: 260px;
+  --header-height: 72px;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  @apply bg-app-bg text-gray-900 antialiased;
+}
+
+.glass {
+  @apply bg-white/80 backdrop-blur-md border border-gray-200/50;
+}
+
+.glass-card {
+  @apply bg-white border border-gray-200 rounded-[2rem] p-6 shadow-sm hover:shadow-md transition-all duration-300;
+}
+
+.btn {
+  @apply inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-bold transition-all duration-200 active:scale-95 cursor-pointer;
+}
+
+.btn-primary {
+  @apply bg-brand-black text-white hover:bg-black/90;
+}
+
+.btn-accent {
+  @apply bg-brand-lime text-brand-black hover:brightness-95;
+}
+
+.btn-secondary {
+  @apply bg-white border border-gray-200 text-gray-900 hover:bg-gray-50;
+}
+
+.app-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: var(--sidebar-width);
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  @apply bg-white border-r border-gray-200 z-50;
+}
+
+.main-content {
+  flex: 1;
+  margin-left: var(--sidebar-width);
+  @apply p-8 bg-app-bg;
+}
+
+.header {
+  height: var(--header-height);
+  @apply px-8 flex items-center justify-between bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 z-40;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-200 rounded-full hover:bg-gray-300 transition-colors;
+}
