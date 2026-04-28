@@ -1,0 +1,1 @@
+{"messages": [{"role": "user", "content": [{"type": "image"}, {"type": "text", "text": "What is the primary finding in this chest X-ray?"}]}, {"role": "assistant", "content": [{"type": "text", "text": "The X-ray reveals a consolidated opacity in the right middle lobe, suggestive of lobar pneumonia."}]}], "image": "data/raw/sample_xray.jpg"}

@@ -1,0 +1,30 @@
+model:
+  model_id: "google/medgemma-1.5-4b-it"
+  use_auth_token: true # Set HF_TOKEN in your environment
+
+training:
+  output_dir: "./checkpoints/medgemma-finetuned"
+  per_device_train_batch_size: 2
+  gradient_accumulation_steps: 4
+  learning_rate: 2e-4
+  num_train_epochs: 3
+  logging_steps: 10
+  save_steps: 100
+  eval_steps: 100
+  evaluation_strategy: "steps"
+  bf16: true # Use true for A100/H100, false/fp16 for others
+  optim: "paged_adamw_8bit"
+  report_to: "tensorboard"
+
+lora:
+  r: 16
+  lora_alpha: 32
+  target_modules: ["q_proj", "o_proj", "k_proj", "v_proj", "gate_proj", "up_proj", "down_proj"]
+  lora_dropout: 0.05
+  bias: "none"
+  task_type: "CAUSAL_LM" # MedGemma 1.5 is decoder-only
+
+dataset:
+  train_path: "data/processed/train.jsonl"
+  eval_path: "data/processed/eval.jsonl"
+  max_seq_length: 2048

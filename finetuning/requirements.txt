@@ -1,0 +1,12 @@
+unsloth
+torch>=2.4.0
+xformers
+transformers>=4.44.0
+peft
+bitsandbytes
+datasets
+trl>=0.9.0
+accelerate
+pillow
+sentencepiece
+pyyaml
