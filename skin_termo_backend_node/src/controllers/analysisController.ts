@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import axios from 'axios';
+import { callZhipuAI } from '../utils/aiClient';
 import fs from 'fs';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
@@ -8,15 +9,7 @@ import { AnalysisHistory, User } from '../models';
 const Z_AI_URL = 'https://api.z.ai/api/paas/v4/chat/completions';
 const UPLOAD_DIR = path.resolve(__dirname, '../../uploads');
 
-// Get all available API keys from pool
-const API_KEYS = [
-  process.env.ZHIPU_API_KEY_1,
-  process.env.ZHIPU_API_KEY_2,
-  process.env.ZHIPU_API_KEY_3,
-  process.env.ZHIPU_API_KEY_4,
-  process.env.ZHIPU_API_KEY_5,
-  process.env.ZHIPU_API_KEY // Default fallback
-].filter(key => !!key) as string[];
+
 
 if (!fs.existsSync(UPLOAD_DIR)) {
   fs.mkdirSync(UPLOAD_DIR, { recursive: true });
@@ -90,30 +83,7 @@ export const analyzeSkin = async (req: Request, res: Response) => {
         ]
       };
 
-      let response = null;
-      let lastError = null;
-
-      // Loop through API Keys if one fails
-      for (const key of API_KEYS) {
-        try {
-          console.log(`Attempting analysis with key ending in ...${key.slice(-4)}`);
-          const headers = {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${key}`
-          };
-          
-          response = await axios.post(Z_AI_URL, payload, { headers, timeout: 60000 });
-          if (response.status === 200) break; // Success!
-        } catch (error: any) {
-          lastError = error;
-          console.warn(`Key failed. Rotating...`);
-          continue;
-        }
-      }
-
-      if (!response) {
-        throw lastError || new Error('All API Keys failed');
-      }
+      const response = await callZhipuAI(payload);
       rawContent = response.data.choices[0].message.content;
     }
     const jsonMatch = rawContent.match(/\{[\s\S]*\}/);

@@ -27,7 +27,7 @@ class _PredictionPageState extends State<PredictionPage> with TickerProviderStat
   Timer? _messageTimer;
 
   final List<String> _loadingMessages = [
-    'Initializing ZhipuAI Vision Intelligence...',
+    'Initializing Cloud Vision Intelligence...',
     'Analyzing skin architecture patterns...',
     'Checking dermatological indices...',
     'Cross-referencing global medical database...',
@@ -316,7 +316,7 @@ class _PredictionPageState extends State<PredictionPage> with TickerProviderStat
         modeText = 'Running on-device AI model...';
         break;
       case InferenceMode.glm:
-        modeText = 'Connecting to Zhipu AI (GLM)...';
+        modeText = 'Connecting to Cloud AI...';
         break;
       case InferenceMode.ollama:
         modeText = 'Connecting to Ollama AI...';

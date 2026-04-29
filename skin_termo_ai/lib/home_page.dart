@@ -354,7 +354,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     border: Border.all(color: Colors.white.withOpacity(0.2)),
                   ),
                   child: const Text(
-                    'z.ai',
+                    'termo.ai',
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.w900,

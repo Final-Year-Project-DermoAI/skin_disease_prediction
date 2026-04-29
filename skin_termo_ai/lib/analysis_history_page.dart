@@ -113,7 +113,10 @@ class _AnalysisHistoryPageState extends State<AnalysisHistoryPage> {
         final item = _history[index];
         return FadeInUp(
           delay: Duration(milliseconds: 100 * index),
-          child: _buildHistoryCard(item),
+          child: GestureDetector(
+            onTap: () => _showFullReport(item),
+            child: _buildHistoryCard(item),
+          ),
         );
       },
     );
@@ -205,6 +208,104 @@ class _AnalysisHistoryPageState extends State<AnalysisHistoryPage> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  void _showFullReport(Map<String, dynamic> item) {
+    final imageUrl = '$_baseUrl${item['image_url']}';
+    final severity = item['severity'] ?? 'N/A';
+    final date = DateTime.tryParse(item['timestamp'] ?? '') ?? DateTime.now();
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Container(
+        height: MediaQuery.of(context).size.height * 0.85,
+        decoration: const BoxDecoration(
+          color: Color(0xFF0A0E21),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
+        ),
+        child: Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 12),
+              width: 50,
+              height: 5,
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.3),
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                padding: const EdgeInsets.all(24),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.network(
+                        imageUrl,
+                        width: double.infinity,
+                        height: 250,
+                        fit: BoxFit.cover,
+                        errorBuilder: (c, e, s) => Container(
+                          height: 250,
+                          color: Colors.grey.withOpacity(0.1),
+                          child: const Center(child: Icon(Icons.broken_image, color: Colors.white24, size: 50)),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            item['disease_name'] ?? 'Unknown Condition',
+                            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                          decoration: BoxDecoration(
+                            color: _getSeverityColor(severity).withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(color: _getSeverityColor(severity).withOpacity(0.5)),
+                          ),
+                          child: Text(
+                            severity.toString().toUpperCase(),
+                            style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: _getSeverityColor(severity)),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
+                      'Analyzed on ${date.day}/${date.month}/${date.year} • Confidence: ${item['confidence']}',
+                      style: TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 14),
+                    ),
+                    const SizedBox(height: 24),
+                    const Text(
+                      'Full Medical Report',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF00D2FF)),
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      item['description'] ?? 'No description available.',
+                      style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 16, height: 1.6),
+                    ),
+                    const SizedBox(height: 30),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

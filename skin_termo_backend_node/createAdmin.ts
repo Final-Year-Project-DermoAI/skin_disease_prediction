@@ -6,7 +6,7 @@ async function generateAdmin() {
   try {
     await sequelize.sync();
     
-    const adminEmail = 'admin@skintermo.com';
+    const adminEmail = 'admin@skintermove.com';
     const existing = await User.findOne({ where: { email: adminEmail } });
     
     if (existing) {

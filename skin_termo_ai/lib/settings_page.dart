@@ -214,18 +214,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             _saveSettings(showSnackbar: false);
                           },
                         ),
-                        const SizedBox(height: 12),
-                        _buildModeOption(
-                          title: 'Zhipu AI (GLM-4V-Flash)',
-                          subtitle: 'High accuracy cloud model',
-                          icon: FontAwesomeIcons.robot,
-                          color: const Color(0xFFFFB347),
-                          isSelected: _inferenceMode == InferenceMode.glm,
-                          onTap: () {
-                            setState(() => _inferenceMode = InferenceMode.glm);
-                            _saveSettings(showSnackbar: false);
-                          },
-                        ),
+
                         const SizedBox(height: 12),
                         _buildModeOption(
                           title: 'On-Device (TFLite)',
@@ -288,13 +277,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           hint: 'jayasimma/healthcare',
                           icon: FontAwesomeIcons.brain,
                         ),
-                        const SizedBox(height: 20),
-                        _buildInputField(
-                          label: 'Zhipu API Key',
-                          controller: _zhipuApiKeyController,
-                          hint: 'Enter your Zhipu API Key',
-                          icon: FontAwesomeIcons.key,
-                        ),
+
                       ],
                     ),
                   ),

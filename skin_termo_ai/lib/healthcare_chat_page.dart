@@ -87,7 +87,7 @@ class _HealthcareChatPageState extends State<HealthcareChatPage> with TickerProv
     if (mounted) {
       setState(() {
         _currentMode = mode;
-        _currentModelName = (mode == InferenceMode.ollama) ? model : 'ZhipuAI (GLM)';
+        _currentModelName = (mode == InferenceMode.ollama) ? model : 'Cloud SkinTermoAI';
       });
     }
   }

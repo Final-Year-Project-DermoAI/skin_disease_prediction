@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import axios from 'axios';
+import { callZhipuAI } from '../utils/aiClient';
 import fs from 'fs';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
@@ -189,12 +190,10 @@ export const chatWithAi = async (req: Request, res: Response) => {
       const hasImage = messages.some((m: any) => m.imageUrl || m.image_base64);
       const modelUsed = hasImage ? "glm-4.5v-flash" : "glm-4.7-flash";
       
-      const response = await axios.post(ZHIPU_URL, {
+      const response = await callZhipuAI({
         model: modelUsed,
         messages: [{ role: "system", content: systemPrompt }, ...filteredMessages],
         temperature: 0.3
-      }, {
-        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${process.env.ZHIPU_API_KEY}` }
       });
       aiContent = response.data.choices[0].message.content;
     }
